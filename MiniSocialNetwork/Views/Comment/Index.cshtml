@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+<h1>@ViewBag.Message</h1>
+<h2>Comments</h2>
+
+@foreach (var comment in ViewBag.Comments)
+{
+    <div class="panel panel-default">
+        <div class="panel-body">
+            Comentariu: @comment.Content
+            <br />
+            <span class="label label-success">@comment.Created_at</span>
+            <br />
+            <i class="glyphicon glyphicon-globe"></i> @comment.Post.Content
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-sm btn btn-success" href="/Comments/Show/@comment.CommentId">Show comment</a>
+        </div>
+    </div>
+    
+}
+<a class="btn btn-primary" href="/Posts/Index/">Show Posts List</a>
+
+
+<a class="btn btn-primary" href="/Comments/New">New comment</a>
+<br />

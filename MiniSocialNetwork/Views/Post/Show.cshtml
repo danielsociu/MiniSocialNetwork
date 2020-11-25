@@ -1,0 +1,23 @@
+﻿@model MiniSocialNetwork.Models.Post
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show Post</h2>
+
+<p>@Model.Content</p>
+
+<form method="post" action="/Posts/Delete/@Model.PostId">
+
+    @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+    <button class="btn btn-success" type="submit">Delete post</button>
+
+</form>
+<br />
+<a class="btn btn-success" href="/Posts/Index/">Show posts list</a>
+
+<br />
+<hr />
+<br />
+
