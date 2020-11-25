@@ -3,9 +3,9 @@
     ViewBag.Title = "Show";
 }
 <br />
-<a href="/Comments/Index">Comments list</a>
+<a href="/Comment/Index">Comment list</a>
 <br />
-<a class="btn btn-info" href="/Comments/New">Add comment</a>
+<a class="btn btn-info" href="/Comment/New">Add comment</a>
 
 <br />
 <div class="panel panel-default">
@@ -17,8 +17,8 @@
         <i class="glyphicon glyphicon-globe"></i> @Model.Post.Content
         <br />
         <hr>
-        <a class="btn btn-success pull-left" href="/Comments/Edit/@Model.CommentId">Edit comment</a>
-        <form method="post" action="/Comments/Delete/@Model.CommentId">
+        <a class="btn btn-success pull-left" href="/Comment/Edit/@Model.CommentId">Edit comment</a>
+        <form method="post" action="/Comment/Delete/@Model.CommentId">
             @Html.HttpMethodOverride(HttpVerbs.Delete)
             <button class="btn btn-danger pull-right" type="submit">Delete comment</button>
         </form>

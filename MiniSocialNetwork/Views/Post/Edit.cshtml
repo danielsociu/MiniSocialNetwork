@@ -3,7 +3,7 @@
 
 <h2>Post Edit</h2>
 
-<form method="post" action="/Posts/Edit/@Model.PostId">
+<form method="post" action="/Post/Edit/@Model.PostId">
     @Html.HttpMethodOverride(HttpVerbs.Put)
 
     @Html.HiddenFor(m => m.PostId)

@@ -2,7 +2,7 @@
     ViewBag.Title = "Index";
 }
 <h1>@ViewBag.Message</h1>
-<h2>Comments</h2>
+<h2>Comment</h2>
 
 @foreach (var comment in ViewBag.Comments)
 {
@@ -15,13 +15,13 @@
             <i class="glyphicon glyphicon-globe"></i> @comment.Post.Content
         </div>
         <div class="panel-footer">
-            <a class="btn btn-sm btn btn-success" href="/Comments/Show/@comment.CommentId">Show comment</a>
+            <a class="btn btn-sm btn btn-success" href="/Comment/Show/@comment.CommentId">Show comment</a>
         </div>
     </div>
     
 }
-<a class="btn btn-primary" href="/Posts/Index/">Show Posts List</a>
+<a class="btn btn-primary" href="/Post/Index/">Show Post List</a>
 
 
-<a class="btn btn-primary" href="/Comments/New">New comment</a>
+<a class="btn btn-primary" href="/Comment/New">New comment</a>
 <br />

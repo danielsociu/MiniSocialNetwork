@@ -7,7 +7,7 @@
 
 <p>@Model.Content</p>
 
-<form method="post" action="/Posts/Delete/@Model.PostId">
+<form method="post" action="/Post/Delete/@Model.PostId">
 
     @Html.HttpMethodOverride(HttpVerbs.Delete)
 
@@ -15,7 +15,7 @@
 
 </form>
 <br />
-<a class="btn btn-success" href="/Posts/Index/">Show posts list</a>
+<a class="btn btn-success" href="/Post/Index/">Show posts list</a>
 
 <br />
 <hr />
