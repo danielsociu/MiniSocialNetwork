@@ -1,0 +1,60 @@
+﻿@model MiniSocialNetwork.Models.Profile
+@{
+    ViewBag.Title = "Profiles";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/Site.css")
+</head>
+
+<body>
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    @if (ViewBag.Message != null)
+    {
+        @ViewBag.Message;
+        <hr />
+    }
+    
+    @*for (var i = 0; i < ViewBag.Profiles.GetType().Length; i ++)*@
+    @foreach (var profile in ViewBag.Profiles)
+    {
+        if (profile.GetType().GetProperties().Length > 0)
+        {
+            var linkProfile = "";
+            //<p>@profile.GetType().GetProperties().Length</p>
+            foreach (var prop in profile.GetType().GetProperties())
+            {
+                object propValue = prop.GetValue(profile, null);
+                if (prop.Name == "ProfileId")
+                {
+                    linkProfile = "/Profile/View/" + propValue;
+                }
+                <p><strong>@prop.Name:</strong> @propValue</p>
+            }
+            <a href=@linkProfile >View profile</a>
+            <hr />
+            //<h3>Id:     @profile.ProfileId</h3> //I wonder why this doesn't work Sadge
+            //<p><strong>Email:</strong>          @profile.Email</p>
+            //<p><strong>Name:</strong>           @(profile.FirstName + ' ' + profile.LastName)</p>
+            //<p><strong>Type:</strong>           @profile.Type</p>
+            //<p><strong>Profile Picture:</strong> @profile.ProfilePictureUrl</p>
+            //<p><strong>Status:</strong>         @profile.Status</p>
+            //<p><strong>Location:</strong>       @profile.Location</p>
+            //<p><strong>Biography:</strong>       @profile.Biography</p>
+            //<p><strong>Private:</strong>       @profile.Private</p>
+            //<p><strong>Birth Date:</strong>       @profile.BirthDate</p>
+        }
+    }
+    <a href="/Profile/New">Creaza propriul profil!</a>
+    <br />
+    <a href="/Profile/Edit">Editeaza-ti profilul!</a>
+    <br />
+</body>
+</html>
