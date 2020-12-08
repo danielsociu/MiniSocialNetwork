@@ -15,7 +15,7 @@ namespace MiniSocialNetwork.Controllers
         public ActionResult Index()
         {
             var profiles = (from user in db.Users
-                           join profile in db.Profiles on user.Id equals profile.ProfileId
+                           join profile in db.Profiles on user.Id equals profile.UserId
                            select new {
                                profile.ProfileId,
                                profile.ProfilePictureUrl,
@@ -39,7 +39,7 @@ namespace MiniSocialNetwork.Controllers
         }
 
         [ActionName("View")]
-        public ActionResult ViewProfile(string id)
+        public ActionResult ViewProfile(int id)
         {
             var profileUser = (from profile in db.Profiles
                               where profile.ProfileId == id
@@ -92,7 +92,7 @@ namespace MiniSocialNetwork.Controllers
                 if (ModelState.IsValid)
                 {
                     var loggedUser = User.Identity.GetUserId();
-                    profile.ProfileId = loggedUser;
+                    profile.UserId = loggedUser;
                     db.Profiles.Add(profile);
                     db.SaveChanges();
                     TempData["message"] = "You successfully created the profile!";

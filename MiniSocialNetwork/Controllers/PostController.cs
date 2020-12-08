@@ -49,6 +49,7 @@ namespace MiniSocialNetwork.Controllers
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return View(pst);
             }
         }
@@ -79,6 +80,7 @@ namespace MiniSocialNetwork.Controllers
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return View(requestPost);
             }
         }

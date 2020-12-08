@@ -70,6 +70,7 @@ namespace MiniSocialNetwork.Controllers
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return View(comment);
             }
         }
@@ -93,7 +94,7 @@ namespace MiniSocialNetwork.Controllers
                 if (TryUpdateModel(comment))
                 {
                     comment.Content = requestComment.Content;
-                    comment.Created_at = requestComment.Created_at;
+                    comment.CreatedAt = requestComment.CreatedAt;
                     db.SaveChanges();
                     TempData["message"] = "Comment edited!";
                     return RedirectToAction("Index");
@@ -102,6 +103,7 @@ namespace MiniSocialNetwork.Controllers
             }
             catch (Exception e)
             {
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return View();
             }
         }

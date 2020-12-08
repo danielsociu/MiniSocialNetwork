@@ -12,8 +12,9 @@ namespace MiniSocialNetwork.Models
     public class Profile
     {
         [Key]
-        [ForeignKey("User")]
-        public string ProfileId { get; set; }
+        public int ProfileId { get; set; }
+        [Required]
+        public string UserId { get; set; }
         [Required(ErrorMessage = "Prenumele este obligatoriu!")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Numele este obligatoriu!")]
@@ -28,9 +29,7 @@ namespace MiniSocialNetwork.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
-        //public string UserId { get; set; }
         
-        //[ForeignKey("ProfileId")]
         public virtual ApplicationUser User { get; set; }
     }
 }

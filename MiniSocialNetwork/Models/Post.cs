@@ -12,12 +12,16 @@ namespace MiniSocialNetwork.Models
         [Key]
         public int PostId { get; set; }
         [Required]
-        public string Content { get; set; }
-        public string Created_at { get; set; }
-        [Required]
         public int UserId { get; set; }
+        [Required(ErrorMessage = "The content is required!")]
+        [DataType(DataType.MultilineText)]
+        public string Content { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime CreatedAt { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 
 

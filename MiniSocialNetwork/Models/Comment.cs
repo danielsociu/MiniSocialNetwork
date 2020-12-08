@@ -12,22 +12,19 @@ namespace MiniSocialNetwork.Models
     {
         [Key]
         public int CommentId { get; set; }
-        public int PostId { get; set; }
-        public int UserId { get; set; }
         [Required]
+        public int PostId { get; set; }
+        [Required]
+        public string UserId { get; set; }
+        [Required(ErrorMessage = "The content is required!")]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
-        public string Created_at { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public string CreatedAt { get; set; }
 
         public virtual Post Post { get; set; }
         public IEnumerable<SelectListItem> Posts { get; set; }
+        public ApplicationUser User { get; set; }
     }
-
-    public class CommentDBContext : DbContext
-    {
-        public CommentDBContext() : base("DBConnectionString") { }
-        public DbSet<Comment> Comments { get; set; }
-        public DbSet<Post> Posts { get; set; }
-    }
-
 }
