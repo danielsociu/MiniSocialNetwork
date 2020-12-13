@@ -14,22 +14,24 @@ namespace MiniSocialNetwork.Controllers
         // GET: Profile
         public ActionResult Index()
         {
-            var profiles = (from user in db.Users
-                           join profile in db.Profiles on user.Id equals profile.UserId
-                           select new {
-                               profile.ProfileId,
-                               profile.ProfilePictureUrl,
-                               profile.Status,
-                               profile.FirstName,
-                               profile.LastName,
-                               profile.Location,
-                               profile.Biography,
-                               profile.Private,
-                               profile.BirthDate,
-                               user.UserName,
-                               user.Email,
-                               user.PhoneNumber,
-                           }).ToList();
+            //var profiles = (from user in db.Users
+            //               join profile in db.Profiles on user.Id equals profile.UserId
+            //               select new {
+            //                   profile.ProfileId,
+            //                   profile.ProfilePictureUrl,
+            //                   profile.Status,
+            //                   profile.FirstName,
+            //                   profile.LastName,
+            //                   profile.Location,
+            //                   profile.Biography,
+            //                   profile.Private,
+            //                   profile.BirthDate,
+            //                   user.UserName,
+            //                   user.Email,
+            //                   user.PhoneNumber,
+            //               }).ToList();
+            var profiles = from profile in db.Profiles
+                           select profile;
             ViewBag.Profiles = profiles;
             if (TempData.ContainsKey("message"))
             {
@@ -38,40 +40,48 @@ namespace MiniSocialNetwork.Controllers
             return View();
         }
 
+        [ActionName("Search")]
+        public ActionResult SearchProfile(string searchedString)
+        {
+            var query = (from profile in db.Profiles
+                         where profile.FullName.ToUpper().Contains(searchedString.ToUpper())
+                             && profile.Private == false
+                         select profile);
+                        // {
+                        //     profile.ProfileId,
+                        //     profile.FullName,
+                        //     profile.ProfilePictureUrl,
+                        // }).ToList();
+            ViewBag.SearchedString = searchedString;
+            ViewBag.SearchedProfiles = query;
+            return View();
+        }
+
         [ActionName("View")]
         public ActionResult ViewProfile(int id)
         {
-            var profileUser = (from profile in db.Profiles
-                              where profile.ProfileId == id
-                              select new {
-                                   profile.ProfileId,
-                                   profile.ProfilePictureUrl,
-                                   profile.Status,
-                                   profile.FirstName,
-                                   profile.LastName,
-                                   profile.Location,
-                                   profile.Biography,
-                                   profile.Private,
-                                   profile.BirthDate,
-                              }).ToList();
+            Profile profileUser = (from profile in db.Profiles
+                               where profile.ProfileId == id
+                               select profile).SingleOrDefault();
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.Message = TempData["message"];
             }
-            if (profileUser.Count < 1)
+            if (profileUser == null)
             {
                 TempData["message"] = "Profile doesn't exist";
                 return RedirectToAction("Index");
             }
-            ViewBag.Profile = profileUser[0];
-            return View();
+            return View(profileUser);
         }
 
         [ActionName("New")]
         public ActionResult CreateProfile()
         {
             var loggedUser = User.Identity.GetUserId();
-            var profileUser = db.Profiles.Find(loggedUser);
+            Profile profileUser = (from profile in db.Profiles
+                               where profile.UserId == loggedUser
+                               select profile).SingleOrDefault();
             if ( profileUser != null)
             {
                 TempData["message"] = "You already have a profile!";
@@ -93,6 +103,7 @@ namespace MiniSocialNetwork.Controllers
                 {
                     var loggedUser = User.Identity.GetUserId();
                     profile.UserId = loggedUser;
+                    profile.FullName = profile.FirstName + ' ' + profile.LastName;
                     db.Profiles.Add(profile);
                     db.SaveChanges();
                     TempData["message"] = "You successfully created the profile!";
@@ -112,7 +123,9 @@ namespace MiniSocialNetwork.Controllers
         public ActionResult EditProfile()
         {
             var loggedUser = User.Identity.GetUserId();
-            var profileUser = db.Profiles.Find(loggedUser);
+            Profile profileUser = (from profile in db.Profiles
+                               where profile.UserId == loggedUser
+                               select profile).SingleOrDefault();
             if (profileUser == null)
             {
                 TempData["message"] = "You need to first create a profile!";
@@ -132,7 +145,9 @@ namespace MiniSocialNetwork.Controllers
             try
             {
                 var loggedUser = User.Identity.GetUserId();
-                Profile profileUser = db.Profiles.Find(loggedUser);
+                Profile profileUser = (from profilex in db.Profiles
+                                   where profilex.UserId == loggedUser
+                                   select profilex).SingleOrDefault();
                 if (profileUser == null)
                 {
                     TempData["message"] = "You need to first create a profile!";
@@ -142,6 +157,9 @@ namespace MiniSocialNetwork.Controllers
                 {
                     if (TryUpdateModel(profileUser))
                     {
+                        profileUser.FirstName = profile.FirstName;
+                        profileUser.LastName = profile.LastName;
+                        profileUser.FullName = profile.FirstName + ' ' + profile.LastName;
                         profileUser.ProfilePictureUrl = profile.ProfilePictureUrl;
                         profileUser.Status = profile.Status;
                         profileUser.Location = profile.Location;

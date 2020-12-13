@@ -23,6 +23,10 @@ textarea {
     max-width: 280px;
 }
 
+/*
+    Form styling
+*/
+
 .classic-form {
     width: 80%;
     clear: both;
@@ -40,4 +44,98 @@ textarea {
 
 .classic-form input:focus {
     outline: none;
+}
+
+/*
+    Profile styling
+*/
+
+.profile-body {
+    width:100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "main main"
+        "buttons buttons"
+        "about details";
+}
+.profile-main {
+    grid-area: main;
+    justify-self: center;
+    text-align: center;
+}
+.profile-main img {
+    width: 200px;
+    border-radius: 50%;
+}
+
+.profile-buttons {
+    grid-area: buttons;
+    justify-self: right;
+}
+
+.profile-about {
+    grid-area: about;
+}
+
+.profile-details {
+    grid-area: details;
+}
+
+.profiles-holder {
+    width: 70%;
+}
+
+/*
+    Small profiles (search styling)
+*/
+
+.search-input {
+    width: 100%;
+    clear: both;
+    border: 1px solid #bdbdbd;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding-left: 4px;
+    height: 2em;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-result-body {
+    width: 70%;
+}
+
+.small-profile-holder {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.small-profile-details {
+    display: inline-block;
+    height: 100%;
+}
+
+.small-profile-details p {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 15px;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+
+.small-profile-details img{
+    width: 50px;
+    float: left;
+    border-radius: 50%;
+}
+
+.small-profile-buttons {
+    align-self: flex-end;
 }

@@ -1,7 +1,8 @@
 ﻿@model MiniSocialNetwork.Models.Profile
 @{
-    ViewBag.Title = "Editing your profile: " + " " + ViewBag.Profile.ProfileId;
+    ViewBag.Title = "Editing your profile:";
 }
+
 
 <!DOCTYPE html>
 <html>
@@ -27,21 +28,21 @@
         @Html.ValidationSummary(false, null, new { @class = "text-danger" })
 
         @Html.HiddenFor(m => m.ProfileId)
-        @Html.Label("FirstName", "Prenume")
+        @Html.Label("FirstName", "First Name")
         <br />
         @Html.EditorFor(m => m.FirstName)
         <br />
         @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("LastName", "Nume")
+        @Html.Label("LastName", "Last Name")
         <br />
         @Html.EditorFor(m => m.LastName)
         <br />
         @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("ProfilePictureUrl", "Poza profil link")
+        @Html.Label("ProfilePictureUrl", "Profile picture link")
         <br />
         @Html.EditorFor(m => m.ProfilePictureUrl)
         <br />
@@ -54,7 +55,7 @@
         //@Html.ValidationMessageFor(m => m.Status, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("Location", "Locatie")
+        @Html.Label("Location", "Location")
         <br />
         @Html.EditorFor(m => m.Location)
         //@Html.ValidationMessageFor(m => m.Location, null, new { @class = "text-danger" })
@@ -66,7 +67,7 @@
         //@Html.ValidationMessageFor(m => m.Biography, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("Private", "Privat")
+        @Html.Label("Private", "Private")
         <br />
         @(Html.DropDownListFor(m => m.Private,
                                     new SelectList (
@@ -83,33 +84,33 @@
         //@Html.ValidationMessageFor(m => m.Private, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("BirthDate", "Data nastere")
+        @Html.Label("BirthDate", "Birth Date")
         <br />
         @Html.EditorFor(m => m.BirthDate, new { @type = "date" })
         //@Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { @class = "date-input", @placeholder = "Data" })
         //@Html.ValidationMessageFor(m => m.BirthDate, null, new { @class = "text-danger" })
         <br />
         <br />
-        <button class="btn btn-sm btn-success" type="submit">Update profil</button>
+        <button class="btn btn-sm btn-success" type="submit">Update profile</button>
 
     }
     <!--<form method="post" action="/Profile/Edit" class="classicForm">
-        @Html.HttpMethodOverride(HttpVerbs.Put)
+        Html.HttpMethodOverride(HttpVerbs.Put)
         <label>Profile Picture Url:</label>
         <br />
-        <input type="text" name="ProfilePictureUrl" value="@ViewBag.Profile.ProfilePictureUrl"/>
+        <input type="text" name="ProfilePictureUrl" value="ViewBag.Profile.ProfilePictureUrl"/>
         <br />
         <label>Status:</label>
         <br />
-        <input type="text" name="Status" value="@ViewBag.Profile.Status"/>
+        <input type="text" name="Status" value="ViewBag.Profile.Status"/>
         <br />
         <label>Location:</label> 
         <br />
-        <input type="text" name="Location" value="@ViewBag.Profile.Location"/>
+        <input type="text" name="Location" value="ViewBag.Profile.Location"/>
         <br />
         <label>Biography:</label> 
         <br />
-        <input type="text" name="Biography" value="@ViewBag.Profile.Biography"/>
+        <input type="text" name="Biography" value="ViewBag.Profile.Biography"/>
         <br />
         <label>Private:</label> 
         <br />
@@ -120,7 +121,7 @@
         <br />
         <label>Birth Date:</label> 
         <br />
-        <input type="date" class="datepicker" name="BirthDate" value="@ViewBag.Profile.BirthDate.ToString("yyyy-MM-dd")"/>
+        <input type="date" class="datepicker" name="BirthDate" value="ViewBag.Profile.BirthDate.ToString("yyyy-MM-dd")"/>
         <br />
         <button type="submit">Edit</button>
     </form>

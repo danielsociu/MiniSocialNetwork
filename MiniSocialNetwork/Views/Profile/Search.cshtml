@@ -1,0 +1,41 @@
+﻿@model MiniSocialNetwork.Models.Profile
+@{
+    ViewBag.Title = "Search user";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/Site.css")
+    @Scripts.Render("~/bundles/jquery")
+</head>
+
+<body>
+    <h2>@ViewBag.Title</h2>
+    <hr />
+    @if (ViewBag.Message != null)
+    {
+        @ViewBag.Message;
+        <hr />
+    }
+    <input type="text" class="search-input" id="SearchTextBox" value="@ViewBag.SearchedString" placeholder="User name" />
+    <div class="search-result-body">
+        <hr />
+        @foreach (MiniSocialNetwork.Models.Profile profile in ViewBag.SearchedProfiles)
+        {
+            @Html.Partial("SmallProfile", profile);
+            <hr />
+        }
+    </div>
+</body>
+</html>
+
+<script>
+    $("#SearchTextBox").keypress(function (e) {
+        if (e.keyCode == 13) {
+            window.location.replace("/Profile/Search/" + $(this).val());
+        }
+    })
+</script>

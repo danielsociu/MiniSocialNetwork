@@ -17,9 +17,10 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("MiniSocial", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
+                <input type="text" class="search-input" style="margin-top:10px;" id="NavSearch" placeholder="Search user" />
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("Profiles", "Index", "Profile")</li>
@@ -43,3 +44,11 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<script>
+    $("#NavSearch").keypress(function (e) {
+        if (e.keyCode == 13) {
+            window.location.replace("/Profile/Search/" + $(this).val());
+        }
+    })
+</script>
