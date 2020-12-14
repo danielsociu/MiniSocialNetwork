@@ -10,20 +10,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/Site.css")
-    @Scripts.Render("~/bundles/jquery")
 </head>
 
 <body>
     <h2>@ViewBag.Title</h2>
-    <p>Search an user:</p>
-    <input type="text" class="search-input" id="SearchTextBox" placeholder="User name" />
-    <hr />
     @if (ViewBag.Message != null)
     {
         @ViewBag.Message;
         <hr />
     }
+    <a href="/Profile/New">Create your profile</a>
+    <br />
+    <a href="/Profile/Edit">Edit your profile</a>
+    <hr />
+    <div>
+        <p>Search an user</p>
+        <i class="fa fa-search"></i>
+        <input type="text" class="search-input" id="SearchTextBox" placeholder="Search user" />
+        <button class="btn btn-sm btn-success" id="SearchButton" type="button">Search</button>
+    </div>
+    <hr />
 
     @*for (var i = 0; i < ViewBag.Profiles.GetType().Length; i ++)*@
     <div class="profiles-holder">
@@ -61,17 +67,40 @@
             //}
         }
     </div>
-    <a href="/Profile/New">Create your profile</a>
-    <br />
-    <a href="/Profile/Edit">Edit your profile</a>
-    <br />
+    <div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="/Profile/Index?page=1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= ViewBag.lastPage; i++)
+                {
+                    <li><a href="/Profile/Index?page=@i">@(i)</a></li>
+                }
+
+                <li>
+                    <a href="/Profile/Index?page=@(ViewBag.lastPage)" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </body>
 </html>
 
 <script>
     $("#SearchTextBox").keypress(function (e) {
         if (e.keyCode == 13) {
-            window.location.replace("/Profile/Search/" + $(this).val());
+            // window.location.replace doesn't add to history
+            //window.location.replace("/Profile/Search?page=1&search=" + $(this).val());
+            window.location.href = "/Profile/Search?page=1&search=" + $(this).val();
         }
+    })
+    $("#SearchButton").click(function () {
+        window.location.href = "/Profile/Search?page=1&search=" + $("#SearchTextBox").val();
     })
 </script>

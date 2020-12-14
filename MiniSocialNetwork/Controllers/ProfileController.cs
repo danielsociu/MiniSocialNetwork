@@ -11,6 +11,8 @@ namespace MiniSocialNetwork.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        private int _perPage = 10;
+
         // GET: Profile
         public ActionResult Index()
         {
@@ -32,7 +34,22 @@ namespace MiniSocialNetwork.Controllers
             //               }).ToList();
             var profiles = from profile in db.Profiles
                            select profile;
+            var currentPage = Convert.ToInt32(Request.Params.Get("page"));
+            var totalItems = profiles.Count();
+
+            var offset = 0;
+
+            if (!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+
+            var paginatedProfiles = profiles.Skip(offset).Take(this._perPage);
+
+            ViewBag.Total = totalItems;
+            ViewBag.LastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.Profiles = profiles;
+
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.Message = TempData["message"];
@@ -41,19 +58,41 @@ namespace MiniSocialNetwork.Controllers
         }
 
         [ActionName("Search")]
-        public ActionResult SearchProfile(string searchedString)
+        public ActionResult SearchProfile()
         {
+            var currentPage = Convert.ToInt32(Request.Params.Get("page"));
+            var searchedString = "";
+            if (Request.Params.Get("search") != null) {
+                searchedString = Request.Params.Get("search").Trim();
+                //System.Diagnostics.Debug.WriteLine(searchedString);
+            }
             var query = (from profile in db.Profiles
-                         where profile.FullName.ToUpper().Contains(searchedString.ToUpper())
+                         join user in db.Users on profile.UserId equals user.Id
+                         where (profile.FullName.ToLower().Contains(searchedString)
+                                 || user.Email.ToLower().Contains(searchedString))
                              && profile.Private == false
                          select profile);
-                        // {
-                        //     profile.ProfileId,
-                        //     profile.FullName,
-                        //     profile.ProfilePictureUrl,
-                        // }).ToList();
+            
+            var totalItems = query.Count();
+
+            var offset = 0;
+
+            if (!currentPage.Equals(0))
+            {
+                offset = (currentPage - 1) * this._perPage;
+            }
+
+            var paginatedProfiles = query.Skip(offset).Take(this._perPage);
+
+            ViewBag.Total = totalItems;
+            ViewBag.LastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.SearchedString = searchedString;
             ViewBag.SearchedProfiles = query;
+
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"];
+            }
             return View();
         }
 
