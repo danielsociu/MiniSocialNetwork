@@ -24,21 +24,21 @@
     {
         @Html.ValidationSummary(false, null, new { @class = "text-danger" })
 
-        @Html.Label("FirstName", "Prenume")
+        @Html.Label("FirstName", "First Name")
         <br />
         @Html.TextBox("FirstName", null)
         <br />
         @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("LastName", "Nume")
+        @Html.Label("LastName", "Last Name")
         <br />
         @Html.TextBox("LastName", null)
         <br />
         @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("ProfilePictureUrl", "Poza profil link")
+        @Html.Label("ProfilePictureUrl", "Profile picture link")
         <br />
         @Html.TextBox("ProfilePictureUrl", null)
         <br />
@@ -51,7 +51,7 @@
         //@Html.ValidationMessageFor(m => m.Status, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("Location", "Locatie")
+        @Html.Label("Location", "Location")
         <br />
         @Html.TextBox("Location", null)
         //@Html.ValidationMessageFor(m => m.Location, null, new { @class = "text-danger" })
@@ -63,7 +63,7 @@
         //@Html.ValidationMessageFor(m => m.Biography, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("Private", "Privat")
+        @Html.Label("Private", "Private")
         <br />
         @(Html.DropDownListFor(m => m.Private,
                                     new SelectList (
@@ -80,14 +80,14 @@
         //@Html.ValidationMessageFor(m => m.Private, null, new { @class = "text-danger" })
         <br />
 
-        @Html.Label("BirthDate", "Data nastere")
+        @Html.Label("BirthDate", "Birth Date")
         <br />
         @Html.EditorFor(m => m.BirthDate, new { @type = "date" })
         //@Html.TextBoxFor(m => m.BirthDate, "{0:yyyy-MM-dd}", new { @class = "date-input", @placeholder = "Data" })
         //@Html.ValidationMessageFor(m => m.BirthDate, null, new { @class = "text-danger" })
         <br />
         <br />
-        <button class="btn btn-sm btn-success" type="submit">Creaza profil</button>
+        <button class="btn btn-sm btn-success" type="submit">Create profile</button>
 
     }
     <!--<form method="post" action="/Profile/New" class="classicForm">

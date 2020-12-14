@@ -13,24 +13,25 @@
 </head>
 
 <body>
-    <h2>@ViewBag.Title</h2>
+    <!--<h2>ViewBag.Title</h2>-->
     <hr />
     @if (ViewBag.Message != null)
     {
         @ViewBag.Message;
         <hr />
     }
-
+    <!--MiniSocialNetwork.Models.Profile -->
+    @Html.Partial("ProfilePage")
     @{
-        if (ViewBag.Profile.GetType().GetProperties().Length > 0)
-        {
-            foreach (var prop in ViewBag.Profile.GetType().GetProperties())
-            {
-                object propValue = prop.GetValue(ViewBag.Profile, null);
-                <p><strong>@prop.Name:</strong> @propValue</p>
-            }
-            <hr />
-        }
+        //if (ViewBag.Profile.GetType().GetProperties().Length > 0)
+        //{
+        //    foreach (var prop in ViewBag.Profile.GetType().GetProperties())
+        //    {
+        //        object propValue = prop.GetValue(ViewBag.Profile, null);
+        //        <p><strong>@prop.Name:</strong> @propValue</p>
+        //    }
+        //    <hr />
+        //}
     }
 </body>
 </html>

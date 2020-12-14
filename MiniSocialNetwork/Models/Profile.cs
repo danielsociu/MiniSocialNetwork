@@ -13,12 +13,12 @@ namespace MiniSocialNetwork.Models
     {
         [Key]
         public int ProfileId { get; set; }
-        [Required]
         public string UserId { get; set; }
         [Required(ErrorMessage = "Prenumele este obligatoriu!")]
         public string FirstName { get; set; }
         [Required(ErrorMessage = "Numele este obligatoriu!")]
         public string LastName { get; set; }
+        public string FullName { get; set; }
         [RegularExpression(@"(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)")]
         public string ProfilePictureUrl { get; set; }
         public string Status { get; set; }
