@@ -431,3 +431,5 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+.vs/MiniSocialNetwork/v15/Server/sqlite3/storage.ide*
