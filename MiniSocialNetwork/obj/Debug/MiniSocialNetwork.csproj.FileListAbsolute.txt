@@ -213,3 +213,4 @@ D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\M
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.initial.resources
+D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources

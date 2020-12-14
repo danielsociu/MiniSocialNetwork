@@ -50,6 +50,7 @@ namespace MiniSocialNetwork.Controllers
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
+                System.Diagnostics.Debug.WriteLine(e.InnerException.ToString());
                 return View(pst);
             }
         }
