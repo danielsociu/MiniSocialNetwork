@@ -176,13 +176,9 @@
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Migrations\202012071622294_inital.cs" />
-    <Compile Include="Migrations\202012071622294_inital.designer.cs">
-      <DependentUpon>202012071622294_inital.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202012081418343_initial.cs" />
-    <Compile Include="Migrations\202012081418343_initial.designer.cs">
-      <DependentUpon>202012081418343_initial.cs</DependentUpon>
+    <Compile Include="Migrations\202012161615023_Initial.cs" />
+    <Compile Include="Migrations\202012161615023_Initial.designer.cs">
+      <DependentUpon>202012161615023_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
@@ -285,6 +281,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -300,11 +297,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012071622294_inital.resx">
-      <DependentUpon>202012071622294_inital.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012081418343_initial.resx">
-      <DependentUpon>202012081418343_initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202012161615023_Initial.resx">
+      <DependentUpon>202012161615023_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

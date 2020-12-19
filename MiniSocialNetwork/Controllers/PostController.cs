@@ -42,6 +42,7 @@ namespace MiniSocialNetwork.Controllers
         {
             try
             {
+                pst.CreatedAt = DateTime.Now;
                 db.Posts.Add(pst);
                 db.SaveChanges();
                 TempData["message"] = "Post added!";

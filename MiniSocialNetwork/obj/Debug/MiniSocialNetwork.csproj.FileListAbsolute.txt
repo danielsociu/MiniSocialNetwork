@@ -204,8 +204,6 @@ D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\bin\Microso
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.Owin.Security.OAuth.xml
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csprojAssemblyReference.cache
-D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.Initial.resources
-D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.CoreCompileInputs.cache
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.CopyComplete
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.dll
@@ -213,4 +211,5 @@ D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\M
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.initial.resources
-D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources
+D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.Initial.resources
+D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
