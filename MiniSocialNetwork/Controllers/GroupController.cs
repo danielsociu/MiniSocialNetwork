@@ -47,9 +47,9 @@ namespace MiniSocialNetwork.Controllers
         public ActionResult ViewGroup(int id)
         {
             string loggedUser = User.Identity.GetUserId();
-            string fullName = (from profile in db.Profiles
-                            where profile.UserId == loggedUser
-                            select profile.FullName).FirstOrDefault();
+            Profile profile = (from profilex in db.Profiles
+                            where profilex.UserId == loggedUser
+                            select profilex).FirstOrDefault();
             Group group = db.Groups.Find(id);
             IEnumerable<int> joinedGroups = getGroups();
 
@@ -57,7 +57,8 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.JoinedGroups = joinedGroups;
             ViewBag.CurrentGroup = id;
             ViewBag.JoinedUsers = getUsers(id);
-            ViewBag.FullName = fullName;
+            ViewBag.ProfilePic = profile.ProfilePictureUrl;
+            ViewBag.FullName = profile.FirstName;
             if (joinedGroups.Contains(id))
             {
                 ViewBag.ShowMessages = 1;
@@ -74,6 +75,37 @@ namespace MiniSocialNetwork.Controllers
                 ViewBag.Message = TempData["message"];
             }
             return View(group);
+        }
+
+        [ActionName("Join")]
+        public ActionResult JoinGroup(int id)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    var loggedUser = User.Identity.GetUserId();
+                    GroupUsers grpusr = new GroupUsers();
+                    grpusr.GroupId = id;
+                    grpusr.UserId = loggedUser;
+                    db.GroupUsers.Add(grpusr);
+                    db.SaveChanges();
+                    TempData["message"] = "You successfully joined the group!";
+
+                    return RedirectToAction("View", id);
+                }
+                else
+                {
+                    return RedirectToAction("View", id);
+                }
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
+                return RedirectToAction("View", id);
+            }
+
         }
 
         [ActionName("New")]
@@ -104,6 +136,7 @@ namespace MiniSocialNetwork.Controllers
                     db.GroupUsers.Add(joined);
                     db.SaveChanges();
                     TempData["message"] = "You successfully created the group!";
+
                     return RedirectToAction("Index");
                 }
                 else

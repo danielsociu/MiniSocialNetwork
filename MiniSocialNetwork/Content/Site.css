@@ -222,6 +222,7 @@
 
 .message-list {
     display: flex;
+    padding: 0px;
     flex-direction: column;
 }
 
@@ -243,6 +244,8 @@
 
 .message-others {
     display:grid;
+    align-self: flex-start;
+    max-width: 45%;
     grid-template-columns: auto;
     grid-template-rows: auto;
     grid-template-areas:
@@ -258,6 +261,20 @@
 
 .message-content {
     grid-area: content
+}
+
+.message-self .message-image {
+    grid-area: image;
+    width:30px;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+
+.message-others .message-image {
+    grid-area: image;
+    width:30px;
+    margin-right: 8px;
+    margin-top: 5px;
 }
 
 .message-input input{
@@ -282,7 +299,4 @@
 }
 .message-input input:focus {
     outline: none !important;
-}
-.message-self {
-    float: right;
 }

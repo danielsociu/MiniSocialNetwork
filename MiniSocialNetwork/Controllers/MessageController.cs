@@ -31,9 +31,9 @@ namespace MiniSocialNetwork.Controllers
         {
             var loggedUser = User.Identity.GetUserId();
             var groups = getGroups();
-            string fullname = (from profile in db.Profiles
-                              where profile.UserId == loggedUser
-                              select profile.FullName).SingleOrDefault();
+            Profile profile = (from profilex in db.Profiles
+                              where profilex.UserId == loggedUser
+                              select profilex).SingleOrDefault();
             if (!groups.Contains(id))
             {
                 TempData["message"] = "You are not part of this group!";
@@ -45,7 +45,15 @@ namespace MiniSocialNetwork.Controllers
                     message.CreatedAt = DateTime.Now;
                     message.GroupId = id;
                     message.UserId = loggedUser;
-                    message.Nickname = fullname;
+                    if (profile.ProfilePictureUrl == null) {
+                        message.PictureUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";
+                    } else
+                    {
+                        message.PictureUrl = profile.ProfilePictureUrl;
+                    }
+                    message.Nickname = profile.FullName;
+                    db.Messages.Add(message);
+                    db.SaveChanges();
                 } else
                 {
                     TempData["message"] = "Couldn't send message";

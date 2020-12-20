@@ -28,6 +28,7 @@
                             if (message.UserId == ViewBag.CurrentUserId)
                             {
                                 <li class="message-self">
+                                    <img class="message-image" src="@message.PictureUrl" />
                                     <p class="message-title">@message.Nickname</p>
                                     <p class="message-content">@message.Content</p>
                                 </li>
@@ -35,6 +36,7 @@
                             else
                             {
                                 <li class="message-others">
+                                    <img class="message-image" src="@message.PictureUrl" />
                                     <p class="message-title">@message.Nickname</p>
                                     <p class="message-content">@message.Content</p>
                                 </li>
@@ -77,11 +79,12 @@
             // Reference the auto-generated proxy for the hub.
             var chat = $.connection.chatHub;
             // Create a function that the hub can call back to display messages.
-            chat.client.addMessageToGroup = function (userId, nickname, message) {
+            chat.client.addMessageToGroup = function (userId, profilepic, nickname, message) {
                 // Add the message to the page.
                 if (userId == "@ViewBag.CurrentUserId") {
                     $('#chat').append(
                         '<li class="message-self">' +
+                        '<img class="message-image" src="' + profilepic + '" />' +
                         '<p class="message-title">' + nickname + '</p>' +
                         '<p class="message-content">' + message + '</p>' +
                         '</li>'
@@ -89,6 +92,7 @@
                 } else {
                     $('#chat').append(
                         '<li class="message-others">' +
+                        '<img class="message-image" src="' + profilepic + '" />' +
                         '<p class="message-title">' + nickname + '</p>' +
                         '<p class="message-content">' + message + '</p>' +
                         '</li>'
@@ -102,7 +106,7 @@
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
                     // this will also add into database the message
-                    chat.server.send("@ViewBag.CurrentGroup.ToString()", "@ViewBag.FullName", $('#messageinput').val());
+                    chat.server.send("@ViewBag.CurrentGroup.ToString()", "@ViewBag.ProfilePic", "@ViewBag.FullName", $('#messageinput').val());
                     // Clear text box and reset focus for next comment.
                     $('#messageinput').val('').focus();
                 });

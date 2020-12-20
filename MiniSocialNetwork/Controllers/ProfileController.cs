@@ -145,6 +145,9 @@ namespace MiniSocialNetwork.Controllers
                     var loggedUser = User.Identity.GetUserId();
                     profile.UserId = loggedUser;
                     profile.FullName = profile.FirstName + ' ' + profile.LastName;
+                    if (profile.ProfilePictureUrl == null) {
+                        profile.ProfilePictureUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";
+                    }
                     db.Profiles.Add(profile);
                     db.SaveChanges();
                     TempData["message"] = "You successfully created the profile!";
@@ -207,6 +210,9 @@ namespace MiniSocialNetwork.Controllers
                         profileUser.Biography = profile.Biography;
                         profileUser.Private = profile.Private;
                         profileUser.BirthDate = profile.BirthDate;
+                        if (profile.ProfilePictureUrl == null) {
+                            profileUser.ProfilePictureUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";
+                        }
                         db.SaveChanges();
                         TempData["message"] = "You successfully updated your profile!";
                     }

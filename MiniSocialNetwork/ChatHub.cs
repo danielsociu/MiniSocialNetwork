@@ -11,7 +11,7 @@ namespace MiniSocialNetwork
     public class ChatHub : Hub
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        public void Send(string room, string name, string message)
+        public void Send(string room, string profilepic, string name, string message)
         {
             // Call the addNewMessageToPage method to update clients.
             var loggedUser = Context.User.Identity.GetUserId();
@@ -20,13 +20,14 @@ namespace MiniSocialNetwork
                 CreatedAt = DateTime.Now,
                 GroupId = Int32.Parse(room),
                 UserId = loggedUser,
+                PictureUrl = profilepic,
                 Nickname = name,
                 Content = message
             };
             db.Messages.Add(msg);
             db.SaveChanges();
             //Clients.Group(room).addMessageToGroup(loggedUser, name, message);
-            Clients.All.addMessageToGroup(loggedUser, name, message);
+            Clients.Group(room).addMessageToGroup(loggedUser, profilepic, name, message);
         }
         public override Task OnConnected()
         {
@@ -48,7 +49,7 @@ namespace MiniSocialNetwork
             return base.OnConnected();
         }
 
-        public void AddToRoom(int roomparam)
+        public void AddToRoom(string roomparam)
         {
             // Retrieve room.
             var loggedUser = Context.User.Identity.GetUserId();
