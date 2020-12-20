@@ -31,7 +31,7 @@
         }
         @if (Model.BirthDate != null)
         {
-            <p>Birthdate: @Model.BirthDate</p>
+            <p>Birthdate: @Model.BirthDate.Date.ToString("yyyy-MM-dd")</p>
         }
     </div>
     <div class="profile-details">

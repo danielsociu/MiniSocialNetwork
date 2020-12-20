@@ -36,7 +36,6 @@
         @foreach (MiniSocialNetwork.Models.Profile profile in ViewBag.Profiles)
         {
             @Html.Partial("ProfilePage", profile)
-            <br />
             <a class="btn btn-sm btn-success" href="/Profile/View/@profile.ProfileId">View profile</a>
             <hr />
             //if (profile.GetType().GetProperties().Length > 0)

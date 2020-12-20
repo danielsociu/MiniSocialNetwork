@@ -17,9 +17,9 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
+.classic-input input,
+.classic-input select,
+.classic-input textarea {
     max-width: 280px;
 }
 
@@ -93,6 +93,7 @@ textarea {
 
 .search-input {
     width: 100%;
+    max-width: 280px;
     clear: both;
     border: 1px solid #bdbdbd;
     border-radius: 10px;
@@ -138,4 +139,150 @@ textarea {
 
 .small-profile-buttons {
     align-self: flex-end;
+}
+
+/*
+    Group view stlying
+*/
+
+.group-body {
+    width:100%;
+    display: grid;
+    grid-template-columns: 70% auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "main info"
+        "details buttons";
+}
+
+.group-main {
+    grid-area: main;
+}
+
+.group-info {
+    grid-area: info;
+    justify-self: end;
+}
+
+.group-details {
+    grid-area: details;
+}
+
+.group-buttons {
+    grid-area: buttons;
+    justify-self: end;
+}
+
+.group-buttons a {
+    margin: 2px;
+}
+
+.group-view-button {
+    float: right;
+    margin-top: 2px;
+}
+
+/*
+    Message styling
+*/
+
+.group-chat-body {
+    width:100%;
+    display: grid;
+    grid-template-columns: 70% auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "details details"
+        "chat users";
+}
+
+.group-chat-details {
+    grid-area: details;
+    border: 1px solid gray;
+    padding: 5px;
+}
+.group-chat-chat {
+    grid-area: chat;
+    min-height: 500px;
+    border: 1px solid gray;
+    padding: 5px;
+}
+.group-chat-users {
+    grid-area: users;
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+.message-body {
+    display: flex;
+    height:100%;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.message-list p {
+    margin : 0px;
+}
+
+.message-self {
+    max-width: 45%;
+    align-self: flex-end;
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        ". title image"
+        "content content image";
+    justify-items: end;
+}
+
+.message-others {
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        "image title ."
+        "image content content";
+}
+
+.message-title {
+    grid-area: title;
+    font-size: 0.8em;
+    color: gray;
+}
+
+.message-content {
+    grid-area: content
+}
+
+.message-input input{
+    width: 100%;
+    clear: both;
+    border: 1px solid #bdbdbd;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding-left: 4px;
+    padding-right: 55px;
+    height: 2em;
+
+}
+.message-input button {
+    position: absolute;
+    margin-left: -50px;
+    border-radius: 10px;
+    outline:none;
+}
+.message-input button:focus {
+    outline: none !important;
+}
+.message-input input:focus {
+    outline: none !important;
+}
+.message-self {
+    float: right;
 }

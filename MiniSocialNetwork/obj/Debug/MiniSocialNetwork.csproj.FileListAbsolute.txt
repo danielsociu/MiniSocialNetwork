@@ -210,7 +210,10 @@ D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\M
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.CopyComplete
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.dll
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.pdb
-C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources
-C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
-C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.initial.resources
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources
+C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.Initial.resources
+C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
+C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.AspNet.SignalR.SystemWeb.xml

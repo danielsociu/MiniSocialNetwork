@@ -10,11 +10,11 @@ namespace MiniSocialNetwork.Models
     {
         [Key]
         public int MessageId { get; set; }
-        [Required]
         public int GroupId { get; set; }
-        [Required]
         public string UserId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Nickname is required!")]
+        public string Nickname { get; set; }
+        [Required(ErrorMessage = "You cannot send an empty message")]
         [DataType(DataType.MultilineText)]
         public string Content { get; set; }
         [DataType(DataType.Date)]

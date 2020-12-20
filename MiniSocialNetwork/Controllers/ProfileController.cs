@@ -33,7 +33,9 @@ namespace MiniSocialNetwork.Controllers
             //                   user.PhoneNumber,
             //               }).ToList();
             var profiles = from profile in db.Profiles
+                           orderby profile.FullName
                            select profile;
+
             var currentPage = Convert.ToInt32(Request.Params.Get("page"));
             var totalItems = profiles.Count();
 
@@ -48,7 +50,7 @@ namespace MiniSocialNetwork.Controllers
 
             ViewBag.Total = totalItems;
             ViewBag.LastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
-            ViewBag.Profiles = profiles;
+            ViewBag.Profiles = paginatedProfiles;
 
             if (TempData.ContainsKey("message"))
             {
@@ -87,7 +89,7 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.Total = totalItems;
             ViewBag.LastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.SearchedString = searchedString;
-            ViewBag.SearchedProfiles = query;
+            ViewBag.SearchedProfiles = paginatedProfiles;
 
             if (TempData.ContainsKey("message"))
             {

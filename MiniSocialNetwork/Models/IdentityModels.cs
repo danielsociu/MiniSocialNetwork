@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -16,6 +17,8 @@ namespace MiniSocialNetwork.Models
             // Add custom user claims here
             return userIdentity;
         }
+        public virtual ICollection<GroupUsers> GroupUsers { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -32,6 +35,7 @@ namespace MiniSocialNetwork.Models
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Group> Groups { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<GroupUsers> GroupUsers { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

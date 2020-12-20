@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Owin;
 using MiniSocialNetwork.Models;
 using Owin;
+using Microsoft.Owin;
+    [assembly: OwinStartup(typeof(MiniSocialNetwork.Startup))]
 
-[assembly: OwinStartupAttribute(typeof(MiniSocialNetwork.Startup))]
+
+//[assembly: OwinStartupAttribute(typeof(MiniSocialNetwork.Startup))]
 namespace MiniSocialNetwork
 {
     public partial class Startup
@@ -15,7 +17,7 @@ namespace MiniSocialNetwork
 
             CreateAdminUserAndApplicationRoles();
 
-
+            app.MapSignalR();
         }
 
         private void CreateAdminUserAndApplicationRoles()

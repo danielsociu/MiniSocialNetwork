@@ -19,9 +19,10 @@ namespace MiniSocialNetwork.Models
         public string Details { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime BirthDate { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<GroupUsers> GroupUsers { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
         public virtual ApplicationUser Creator { get; set; }
     }
 }
