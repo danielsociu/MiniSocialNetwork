@@ -48,8 +48,8 @@ namespace MiniSocialNetwork.Controllers
         {
             string loggedUser = User.Identity.GetUserId();
             Profile profile = (from profilex in db.Profiles
-                            where profilex.UserId == loggedUser
-                            select profilex).FirstOrDefault();
+                               where profilex.UserId == loggedUser
+                               select profilex).FirstOrDefault();
             Group group = db.Groups.Find(id);
             IEnumerable<int> joinedGroups = getGroups();
 
@@ -63,10 +63,11 @@ namespace MiniSocialNetwork.Controllers
             {
                 ViewBag.ShowMessages = 1;
                 ViewBag.GroupMessages = (from message in db.Messages
-                                        where message.GroupId == id
-                                        orderby message.CreatedAt 
-                                        select message);
-            } else
+                                         where message.GroupId == id
+                                         orderby message.CreatedAt
+                                         select message);
+            }
+            else
             {
                 ViewBag.ShowMessages = 0;
             }
@@ -92,18 +93,18 @@ namespace MiniSocialNetwork.Controllers
                     db.SaveChanges();
                     TempData["message"] = "You successfully joined the group!";
 
-                    return RedirectToAction("View", id);
+                    return RedirectToAction("View", new { id });
                 }
                 else
                 {
-                    return RedirectToAction("View", id);
+                    return RedirectToAction("View", new { id });
                 }
 
             }
             catch (Exception e)
             {
                 System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
-                return RedirectToAction("View", id);
+                return RedirectToAction("View", new { id });
             }
 
         }

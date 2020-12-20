@@ -27,7 +27,7 @@ namespace MiniSocialNetwork
             db.Messages.Add(msg);
             db.SaveChanges();
             //Clients.Group(room).addMessageToGroup(loggedUser, name, message);
-            Clients.Group(room).addMessageToGroup(loggedUser, profilepic, name, message);
+            Clients.Group(room).addMessageToGroup(room, loggedUser, profilepic, name, message);
         }
         public override Task OnConnected()
         {

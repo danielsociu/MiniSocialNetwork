@@ -56,10 +56,15 @@
             }
         </div>
         <div class="group-chat-users">
-            <ul>
+            <ul class="user-list">
                 @foreach (Profile profile in ViewBag.JoinedUsers)
                 {
-                    <li>@profile.FullName</li>
+                    <li class="user-design">
+                        <a href="~/Profile/View/@profile.ProfileId">
+                            <img class="users-image" src="@profile.ProfilePictureUrl" />
+                            <span>@profile.FullName</span>
+                        </a>
+                    </li>
                 }
             </ul>
         </div>
@@ -78,26 +83,33 @@
         $(function () {
             // Reference the auto-generated proxy for the hub.
             var chat = $.connection.chatHub;
+            var messageBody = document.querySelector('#chat');
+            messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
             // Create a function that the hub can call back to display messages.
-            chat.client.addMessageToGroup = function (userId, profilepic, nickname, message) {
+            chat.client.addMessageToGroup = function (room, userId, profilepic, nickname, message) {
                 // Add the message to the page.
-                if (userId == "@ViewBag.CurrentUserId") {
-                    $('#chat').append(
-                        '<li class="message-self">' +
-                        '<img class="message-image" src="' + profilepic + '" />' +
-                        '<p class="message-title">' + nickname + '</p>' +
-                        '<p class="message-content">' + message + '</p>' +
-                        '</li>'
-                    );
-                } else {
-                    $('#chat').append(
-                        '<li class="message-others">' +
-                        '<img class="message-image" src="' + profilepic + '" />' +
-                        '<p class="message-title">' + nickname + '</p>' +
-                        '<p class="message-content">' + message + '</p>' +
-                        '</li>'
-                    );
+                if (room == @ViewBag.CurrentGroup)
+                {
+                    if (userId == "@ViewBag.CurrentUserId") {
+                        $('#chat').append(
+                            '<li class="message-self">' +
+                            '<img class="message-image" src="' + profilepic + '" />' +
+                            '<p class="message-title">' + nickname + '</p>' +
+                            '<p class="message-content">' + message + '</p>' +
+                            '</li>'
+                        );
+                    } else {
+                        $('#chat').append(
+                            '<li class="message-others">' +
+                            '<img class="message-image" src="' + profilepic + '" />' +
+                            '<p class="message-title">' + nickname + '</p>' +
+                            '<p class="message-content">' + message + '</p>' +
+                            '</li>'
+                        );
+                    }
                 }
+                var messageBody = document.querySelector('#chat');
+                messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
             };
             // Set initial focus to message input box.
             $('#messageinput').focus();
@@ -106,7 +118,7 @@
                 $('#sendmessage').click(function () {
                     // Call the Send method on the hub.
                     // this will also add into database the message
-                    chat.server.send("@ViewBag.CurrentGroup.ToString()", "@ViewBag.ProfilePic", "@ViewBag.FullName", $('#messageinput').val());
+                    chat.server.send("@ViewBag.CurrentGroup", "@ViewBag.ProfilePic", "@ViewBag.FullName", $('#messageinput').val());
                     // Clear text box and reset focus for next comment.
                     $('#messageinput').val('').focus();
                 });

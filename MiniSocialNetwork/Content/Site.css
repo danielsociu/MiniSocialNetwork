@@ -203,7 +203,7 @@
 }
 .group-chat-chat {
     grid-area: chat;
-    min-height: 500px;
+    height: 500px;
     border: 1px solid gray;
     padding: 5px;
 }
@@ -222,8 +222,10 @@
 
 .message-list {
     display: flex;
+    list-style-type: none;
     padding: 0px;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .message-list p {
@@ -260,7 +262,10 @@
 }
 
 .message-content {
-    grid-area: content
+    grid-area: content;
+}
+.message-self .message-content {
+    text-align: right;
 }
 
 .message-self .message-image {
@@ -299,4 +304,24 @@
 }
 .message-input input:focus {
     outline: none !important;
+}
+
+/*
+    Users from chat design
+*/
+
+.user-list {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.user-design {
+    padding: 2px;
+}
+.user-design img {
+    width: 30px;
+}
+
+.user-list a:hover {
+    text-decoration: none;
 }
