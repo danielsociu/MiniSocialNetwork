@@ -3,6 +3,13 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Ignore files added by me
+.vs/MiniSocialNetwork/v15/Server/sqlite3/storage.*
+.vs/MiniSocialNetwork/v15/.suo
+MiniSocialNetwork/App_Data/*
+
+
+
 # User-specific files
 *.rsuser
 *.suo
@@ -432,4 +439,3 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-.vs/MiniSocialNetwork/v15/Server/sqlite3/storage.ide*
