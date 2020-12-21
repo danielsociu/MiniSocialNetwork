@@ -218,8 +218,6 @@ C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 =======
 C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.inital.resources
-C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
-C:\Users\Alhiris\source\repos\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.initial.resources
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.Migrations.Initial.resources
 D:\ANUL II\SEM I\ASP.NET\Proiect\MiniSocialNetwork\MiniSocialNetwork\obj\Debug\MiniSocialNetwork.csproj.GenerateResource.cache
 >>>>>>> master

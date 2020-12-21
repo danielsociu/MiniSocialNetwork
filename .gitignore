@@ -4,9 +4,14 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Ignore files added by me
-.vs/MiniSocialNetwork/v15/Server/sqlite3/storage.*
-.vs/MiniSocialNetwork/v15/.suo
-MiniSocialNetwork/App_Data/*
+**/MiniSocialNetwork/v15/Server/sqlite3/storage.*
+**/MiniSocialNetwork/v15/.suo
+**/App_Data/*
+**/Migrations/*
+**/obj/Debug/MiniSocialNetwork.*
+/MiniSocialNetwork.csproj
+**/bin/MiniSocialNetwork.*
+
 
 
 

@@ -183,16 +183,6 @@
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
-<<<<<<< HEAD
-    <Compile Include="Migrations\202012181602158_Initial.cs" />
-    <Compile Include="Migrations\202012181602158_Initial.designer.cs">
-      <DependentUpon>202012181602158_Initial.cs</DependentUpon>
-=======
-    <Compile Include="Migrations\202012161615023_Initial.cs" />
-    <Compile Include="Migrations\202012161615023_Initial.designer.cs">
-      <DependentUpon>202012161615023_Initial.cs</DependentUpon>
->>>>>>> master
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -316,16 +306,6 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\202012181602158_Initial.resx">
-      <DependentUpon>202012181602158_Initial.cs</DependentUpon>
-=======
-    <EmbeddedResource Include="Migrations\202012161615023_Initial.resx">
-      <DependentUpon>202012161615023_Initial.cs</DependentUpon>
->>>>>>> master
-    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
