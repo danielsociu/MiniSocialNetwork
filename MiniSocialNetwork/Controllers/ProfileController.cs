@@ -64,7 +64,8 @@ namespace MiniSocialNetwork.Controllers
         {
             var currentPage = Convert.ToInt32(Request.Params.Get("page"));
             var searchedString = "";
-            if (Request.Params.Get("search") != null) {
+            if (Request.Params.Get("search") != null)
+            {
                 searchedString = Request.Params.Get("search").Trim();
                 //System.Diagnostics.Debug.WriteLine(searchedString);
             }
@@ -73,8 +74,9 @@ namespace MiniSocialNetwork.Controllers
                          where (profile.FullName.ToLower().Contains(searchedString)
                                  || user.Email.ToLower().Contains(searchedString))
                              && profile.Private == false
+                         orderby profile.FullName
                          select profile);
-            
+
             var totalItems = query.Count();
 
             var offset = 0;
@@ -102,8 +104,8 @@ namespace MiniSocialNetwork.Controllers
         public ActionResult ViewProfile(int id)
         {
             Profile profileUser = (from profile in db.Profiles
-                               where profile.ProfileId == id
-                               select profile).SingleOrDefault();
+                                   where profile.ProfileId == id
+                                   select profile).SingleOrDefault();
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.Message = TempData["message"];
@@ -121,9 +123,9 @@ namespace MiniSocialNetwork.Controllers
         {
             var loggedUser = User.Identity.GetUserId();
             Profile profileUser = (from profile in db.Profiles
-                               where profile.UserId == loggedUser
-                               select profile).SingleOrDefault();
-            if ( profileUser != null)
+                                   where profile.UserId == loggedUser
+                                   select profile).SingleOrDefault();
+            if (profileUser != null)
             {
                 TempData["message"] = "You already have a profile!";
                 return RedirectToAction("Edit");
@@ -135,7 +137,8 @@ namespace MiniSocialNetwork.Controllers
             return View();
         }
 
-        [ActionName("New")][HttpPost]
+        [ActionName("New")]
+        [HttpPost]
         public ActionResult CreateProfile(Profile profile)
         {
             try
@@ -145,19 +148,23 @@ namespace MiniSocialNetwork.Controllers
                     var loggedUser = User.Identity.GetUserId();
                     profile.UserId = loggedUser;
                     profile.FullName = profile.FirstName + ' ' + profile.LastName;
-                    if (profile.ProfilePictureUrl == null) {
+                    if (profile.ProfilePictureUrl == null)
+                    {
                         profile.ProfilePictureUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";
                     }
                     db.Profiles.Add(profile);
                     db.SaveChanges();
                     TempData["message"] = "You successfully created the profile!";
                     return RedirectToAction("Index");
-                } else
+                }
+                else
                 {
                     return View(profile);
                 }
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return View(profile);
             }
@@ -168,8 +175,8 @@ namespace MiniSocialNetwork.Controllers
         {
             var loggedUser = User.Identity.GetUserId();
             Profile profileUser = (from profile in db.Profiles
-                               where profile.UserId == loggedUser
-                               select profile).SingleOrDefault();
+                                   where profile.UserId == loggedUser
+                                   select profile).SingleOrDefault();
             if (profileUser == null)
             {
                 TempData["message"] = "You need to first create a profile!";
@@ -183,15 +190,16 @@ namespace MiniSocialNetwork.Controllers
             return View(profileUser);
         }
 
-        [ActionName("Edit")][HttpPut]
+        [ActionName("Edit")]
+        [HttpPut]
         public ActionResult EditProfile(Profile profile)
         {
             try
             {
                 var loggedUser = User.Identity.GetUserId();
                 Profile profileUser = (from profilex in db.Profiles
-                                   where profilex.UserId == loggedUser
-                                   select profilex).SingleOrDefault();
+                                       where profilex.UserId == loggedUser
+                                       select profilex).SingleOrDefault();
                 if (profileUser == null)
                 {
                     TempData["message"] = "You need to first create a profile!";
@@ -210,20 +218,24 @@ namespace MiniSocialNetwork.Controllers
                         profileUser.Biography = profile.Biography;
                         profileUser.Private = profile.Private;
                         profileUser.BirthDate = profile.BirthDate;
-                        if (profile.ProfilePictureUrl == null) {
+                        if (profile.ProfilePictureUrl == null)
+                        {
                             profileUser.ProfilePictureUrl = "https://icon-library.com/images/default-user-icon/default-user-icon-13.jpg";
                         }
                         db.SaveChanges();
                         TempData["message"] = "You successfully updated your profile!";
                     }
                     return RedirectToAction("Index");
-                } else
+                }
+                else
                 {
                     TempData["message"] = "Cannot update your profile";
                     return View(profile);
                 }
 
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return View(profile);
             }

@@ -58,7 +58,7 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.CurrentGroup = id;
             ViewBag.JoinedUsers = getUsers(id);
             ViewBag.ProfilePic = profile.ProfilePictureUrl;
-            ViewBag.FullName = profile.FirstName;
+            ViewBag.FullName = profile.FullName;
             if (joinedGroups.Contains(id))
             {
                 ViewBag.ShowMessages = 1;
@@ -109,6 +109,19 @@ namespace MiniSocialNetwork.Controllers
 
         }
 
+        [ActionName("Leave")]
+        public ActionResult LeaveGroup (int id)
+        {
+            string loggedUser = User.Identity.GetUserId();
+            GroupUsers relation = (from user in db.GroupUsers
+                                   where user.UserId == loggedUser && user.GroupId == id
+                                   select user).FirstOrDefault();
+            db.GroupUsers.Remove(relation);
+            db.SaveChanges();
+            TempData["message"] = "You left the group!";
+            return RedirectToAction("View", new { id });
+        }
+
         [ActionName("New")]
         public ActionResult CreateGroup()
         {
@@ -152,6 +165,7 @@ namespace MiniSocialNetwork.Controllers
                 return View(group);
             }
         }
+
         [ActionName("Edit")]
         public ActionResult EditGroup(int id)
         {
@@ -218,6 +232,27 @@ namespace MiniSocialNetwork.Controllers
                 return View(requestGroup);
             }
         }
+
+        [ActionName("Delete")]
+        public ActionResult DeleteGroup (int id)
+        {
+            string loggedUser = User.Identity.GetUserId();
+            //GroupUsers relation = (from user in db.GroupUsers
+            //                       where user.UserId == loggedUser && user.GroupId == id
+            //                       select user).FirstOrDefault();
+            Group grp = db.Groups.Find(id); // does cascade deleting; deletes GroupUsers and Messages
+            if (grp.CreatorId == loggedUser)
+            {
+                db.Groups.Remove(grp);
+                db.SaveChanges();
+                TempData["message"] = "You deleted the group!";
+            } else
+            {
+                TempData["message"] = "You are not the creator of the group!";
+            }
+            return RedirectToAction("Index");
+        }
+
         [NonAction]
         private IEnumerable<int> getGroups()
         {
@@ -228,6 +263,7 @@ namespace MiniSocialNetwork.Controllers
             return joinedGroups.ToList();
         }
         [NonAction]
+
         private IEnumerable<Profile> getUsers(int groupId)
         {
             var loggedUser = User.Identity.GetUserId();

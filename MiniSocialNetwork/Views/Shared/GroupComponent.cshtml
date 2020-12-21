@@ -13,7 +13,7 @@
         @if (ViewBag.CurrentUserId != null && Model.CreatorId == ViewBag.CurrentUserId)
         {
             <a class="btn btn-sm btn-success" href="/Group/Edit/@Model.GroupId">Edit Group</a>
-            <a class="btn btn-sm btn-danger" href="/Group/Delete/@Model.GroupId">Delete Group</a>
+            <a id="deletebutton" class="btn btn-sm btn-danger" href="/Group/Delete/@Model.GroupId">Delete Group</a>
         } else if (!ViewBag.JoinedGroups.Contains(Model.GroupId))
         {
             <a id ="joinbutton"class="btn btn-sm btn-success" href="/Group/Join/@Model.GroupId">Join Group</a>
@@ -39,6 +39,9 @@
             $.connection.hub.start().done(function () {
                 $('#joinbutton').click(function () {
                     chat.server.addToRoom(@Model.GroupId);
+                });
+                $('#leavebutton').click(function () {
+                    chat.server.removeFromRoom(@Model.GroupId);
                 });
             });
         });

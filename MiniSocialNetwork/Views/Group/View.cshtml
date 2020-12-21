@@ -12,8 +12,7 @@
         <div class="group-chat-details">
             @if (ViewBag.Message != null)
             {
-                @ViewBag.Message;
-                <hr />
+                <span style="color:red">@ViewBag.Message</span>
             }
             @Html.Partial("GroupComponent")
         </div>
@@ -52,7 +51,7 @@
             }
             else
             {
-                <p>You need to join to see messages</p>
+                <h4>You need to join the group to see messages</h4>
             }
         </div>
         <div class="group-chat-users">
@@ -122,6 +121,12 @@
                     // Clear text box and reset focus for next comment.
                     $('#messageinput').val('').focus();
                 });
+                $('#messageinput').keypress(function (ev) {
+                    if (ev.keyCode == 13) {
+                        chat.server.send("@ViewBag.CurrentGroup", "@ViewBag.ProfilePic", "@ViewBag.FullName", $('#messageinput').val());
+                        $('#messageinput').val('').focus();
+                    }
+                })
             });
         });
         // This optional function html-encodes messages for display in the page.
