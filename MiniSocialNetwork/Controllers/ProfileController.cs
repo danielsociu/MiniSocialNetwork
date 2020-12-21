@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
 
 namespace MiniSocialNetwork.Controllers
 {
@@ -39,6 +40,7 @@ namespace MiniSocialNetwork.Controllers
             var currentPage = Convert.ToInt32(Request.Params.Get("page"));
             var totalItems = profiles.Count();
 
+            var currentProfile = Convert.ToInt32(Request.Params.Get("profile"));
             var offset = 0;
 
             if (!currentPage.Equals(0))
@@ -56,6 +58,7 @@ namespace MiniSocialNetwork.Controllers
             {
                 ViewBag.Message = TempData["message"];
             }
+            
             return View();
         }
 
@@ -240,5 +243,38 @@ namespace MiniSocialNetwork.Controllers
                 return View(profile);
             }
         }
+      
+        [ActionName("AddFriend")]
+        [HttpPost]
+        public ActionResult AddFriend(FormCollection formData)
+        {
+            string currentUser = User.Identity.GetUserId();
+            string friendToAdd = formData.Get("UserId");
+            System.Diagnostics.Debug.WriteLine(friendToAdd);
+
+            try
+            {
+                Friend friendship = new Friend();
+                friendship.User1Id = currentUser;
+                friendship.User2Id = friendToAdd;
+                friendship.Accepted = false;
+                friendship.CreatedAt = DateTime.Now;
+
+                db.Friends.Add(friendship);
+                db.SaveChanges();
+                TempData["message"] = "You successfully add your friend!";
+                    
+                return RedirectToAction("Index");
+                 
+            }
+            catch (Exception e)
+            {
+                TempData["message"] = "Cannot add your friend!";
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
+                return RedirectToAction("Index");
+            }
+            
+        }
+
     }
 }
