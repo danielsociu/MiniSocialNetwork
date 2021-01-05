@@ -34,6 +34,7 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.Groups = paginatedGroups;
             ViewBag.CurrentUserId = loggedUser;
             ViewBag.JoinedGroups = getGroups();
+            ViewBag.UserIsAdmin = User.IsInRole("Admin");
 
             if (TempData.ContainsKey("message"))
             {
@@ -59,6 +60,7 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.JoinedUsers = getUsers(id);
             ViewBag.ProfilePic = profile.ProfilePictureUrl;
             ViewBag.FullName = profile.FullName;
+            ViewBag.UserIsAdmin = User.IsInRole("Admin");
             if (joinedGroups.Contains(id))
             {
                 ViewBag.ShowMessages = 1;
@@ -241,7 +243,7 @@ namespace MiniSocialNetwork.Controllers
             //                       where user.UserId == loggedUser && user.GroupId == id
             //                       select user).FirstOrDefault();
             Group grp = db.Groups.Find(id); // does cascade deleting; deletes GroupUsers and Messages
-            if (grp.CreatorId == loggedUser)
+            if (grp.CreatorId == loggedUser || User.IsInRole("Admin"))
             {
                 db.Groups.Remove(grp);
                 db.SaveChanges();

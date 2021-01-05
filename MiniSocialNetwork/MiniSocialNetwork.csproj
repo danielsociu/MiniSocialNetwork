@@ -290,6 +290,7 @@
     <Content Include="Views\Group\Edit.cshtml" />
     <Content Include="Views\Shared\GroupChatComponent.cshtml" />
     <Content Include="Views\Profile\Friend.cshtml" />
+    <Content Include="Views\Profile\IncomingFriends.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

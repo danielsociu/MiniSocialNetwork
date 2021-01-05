@@ -14,12 +14,12 @@ namespace MiniSocialNetwork.Models
 
         
         [ForeignKey("User1")]
-        public string User1Id { get; set; }
+        public string Sender { get; set; }
         public virtual ApplicationUser User1 { get; set; }
 
         
         [ForeignKey("User2")]
-        public string User2Id { get; set; }
+        public string Receiver { get; set; }
         public virtual ApplicationUser User2 { get; set; }
 
         public bool Accepted { get; set; }

@@ -1,9 +1,11 @@
 ﻿using MiniSocialNetwork.Models;
 using System;
 using System.Linq;
+using System.Collections;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
+using System.Collections.Generic;
 
 namespace MiniSocialNetwork.Controllers
 {
@@ -37,10 +39,6 @@ namespace MiniSocialNetwork.Controllers
                            orderby profile.FullName
                            select profile;
 
-            var friends = from friend in db.Friends
-                          orderby friend.CreatedAt
-                          select friend;
-
             var currentPage = Convert.ToInt32(Request.Params.Get("page"));
             var totalItems = profiles.Count();
 
@@ -57,13 +55,12 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.Total = totalItems;
             ViewBag.LastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.Profiles = paginatedProfiles;
-            ViewBag.Friends = friends;
 
             if (TempData.ContainsKey("message"))
             {
                 ViewBag.Message = TempData["message"];
             }
-            
+
             return View();
         }
 
@@ -248,29 +245,171 @@ namespace MiniSocialNetwork.Controllers
                 return View(profile);
             }
         }
-      
+
+        [ActionName("Friend")]
+        public ActionResult ViewFriends()
+        {
+            string loggedUser = User.Identity.GetUserId();
+            var friends = from friend in db.Friends
+                          where friend.Accepted == true && (friend.Receiver == loggedUser || friend.Sender == loggedUser)
+                          orderby friend.CreatedAt
+                          select friend;
+
+            IEnumerable<Profile> profiles = null;
+            foreach (Friend frnd in friends)
+            {
+                var profil = (from profile in db.Profiles
+                              where profile.UserId != loggedUser && (profile.UserId == frnd.Sender || profile.UserId == frnd.Receiver)
+                              select profile).AsEnumerable<Profile>();
+                profiles = profiles.Concat(profil);
+            }
+
+            ViewBag.Friends = profiles;
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"];
+            }
+            return View();
+        }
+
+
+        [ActionName("IncomingFriends")]
+        public ActionResult IncomingFriendRequests()
+        {
+            string loggedUser = User.Identity.GetUserId();
+            var friendsIds = from friendsx in db.Friends
+                             join profile in db.Profiles on friendsx.Receiver equals loggedUser
+                             select friendsx.Sender;
+
+            var friends = from profile in db.Profiles
+                          where friendsIds.Contains(profile.UserId)
+                          select profile;
+
+            ViewBag.Friends = friends;
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"];
+            }
+
+            return View();
+        }
+
+        [ActionName("AcceptFriend")]
+        [HttpPut]
+        public ActionResult AcceptFriendRequest(int id)
+        {
+            try
+            {
+                string loggedUser = User.Identity.GetUserId();
+
+                string senderId = (from profile in db.Profiles
+                                   where profile.ProfileId == id
+                                   select profile.UserId).FirstOrDefault();
+
+                var updatedFriend = (from friend in db.Friends
+                                    where friend.Sender == senderId && friend.Receiver == loggedUser
+                                    select friend).FirstOrDefault();
+
+                if (updatedFriend == null)
+                {
+                    TempData["message"] = "You didn't receive this friend request";
+                    return RedirectToAction("Index");
+                }
+                if (ModelState.IsValid)
+                {
+                    if (TryUpdateModel(updatedFriend))
+                    {
+                        updatedFriend.Sender = updatedFriend.Sender;
+                        updatedFriend.Receiver = updatedFriend.Receiver;
+                        updatedFriend.CreatedAt = updatedFriend.CreatedAt;
+                        updatedFriend.Accepted = true;
+                        db.SaveChanges();
+                        TempData["message"] = "You successfully accepted the friend request!";
+                    }
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["message"] = "Cannot accept the friend request";
+                    return RedirectToAction("IncomingFriends");
+                }
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
+                return RedirectToAction("IncomingFriends");
+            }
+        }
+
+        [ActionName("DeleteFriend")]
+        [HttpDelete]
+        public ActionResult DeleteFriendRequest(int id)
+        {
+            string loggedUser = User.Identity.GetUserId();
+
+            string senderId = (from profile in db.Profiles
+                               where profile.ProfileId == id
+                               select profile.UserId).FirstOrDefault();
+
+            var updatedFriend = (from friend in db.Friends
+                                where friend.Sender == senderId && friend.Receiver == loggedUser
+                                select friend).FirstOrDefault();
+            db.Friends.Remove(updatedFriend);
+            TempData["message"] = "Friend request deleted!";
+            db.SaveChanges();
+            return RedirectToAction("IncomingFriends");
+        }
+
         [ActionName("AddFriend")]
         [HttpPost]
         public ActionResult AddFriend(FormCollection formData)
         {
             string currentUser = User.Identity.GetUserId();
             string friendToAdd = formData.Get("UserId");
-            System.Diagnostics.Debug.WriteLine(friendToAdd);
+
+            var alreadyAdded = (from friend in db.Friends
+                               where friend.Sender == currentUser && friend.Receiver == friendToAdd
+                               select friend).FirstOrDefault();
+            var receivedFriend = (from friend in db.Friends
+                               where friend.Sender == friendToAdd && friend.Receiver == currentUser
+                               select friend).FirstOrDefault();
+            
+            if (currentUser == friendToAdd)
+            {
+                TempData["message"] = "You cannot add yourself as friend";
+                return RedirectToAction("Index");
+            }
+
+            if (alreadyAdded != null)
+            {
+                TempData["message"] = "You already send a friend request";
+                return RedirectToAction("Index");
+            }
+
+            if (receivedFriend != null)
+            {
+                var profileId = (from profile in db.Profiles
+                                 where profile.UserId == friendToAdd
+                                 select profile).FirstOrDefault();
+                return RedirectToAction("AcceptFriend", new { id = profileId});
+            }
+
 
             try
             {
                 Friend friendship = new Friend();
-                friendship.User1Id = currentUser;
-                friendship.User2Id = friendToAdd;
+                friendship.Sender = currentUser;
+                friendship.Receiver = friendToAdd;
                 friendship.Accepted = false;
                 friendship.CreatedAt = DateTime.Now;
 
                 db.Friends.Add(friendship);
                 db.SaveChanges();
-                TempData["message"] = "You successfully add your friend!";
-                    
+                TempData["message"] = "You successfully sent your friend request!";
+
                 return RedirectToAction("Index");
-                 
+
             }
             catch (Exception e)
             {
@@ -278,7 +417,7 @@ namespace MiniSocialNetwork.Controllers
                 System.Diagnostics.Debug.WriteLine(e.Source + e.Message);
                 return RedirectToAction("Index");
             }
-            
+
         }
 
     }
