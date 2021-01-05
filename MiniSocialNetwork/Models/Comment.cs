@@ -12,7 +12,6 @@ namespace MiniSocialNetwork.Models
     {
         [Key]
         public int CommentId { get; set; }
-        [Required]
         public int PostId { get; set; }
         public string UserId { get; set; }
         [Required(ErrorMessage = "The content is required!")]
@@ -20,10 +19,10 @@ namespace MiniSocialNetwork.Models
         public string Content { get; set; }
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public string CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
         public virtual Post Post { get; set; }
         public IEnumerable<SelectListItem> Posts { get; set; }
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

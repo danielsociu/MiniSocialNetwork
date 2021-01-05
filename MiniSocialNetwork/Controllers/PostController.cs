@@ -1,4 +1,5 @@
-﻿using MiniSocialNetwork.Models;
+﻿using Microsoft.AspNet.Identity;
+using MiniSocialNetwork.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,42 @@ namespace MiniSocialNetwork.Controllers
             return View(post);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "User,Editor,Admin")]
+        public ActionResult Show(Comment comm)
+        {
+            comm.CreatedAt = DateTime.Now;
+            comm.UserId = User.Identity.GetUserId();
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Comments.Add(comm);
+                    db.SaveChanges();
+                    return Redirect("/Post/Show/" + comm.PostId);
+                }
+
+                else
+                {
+                    Post a = db.Posts.Find(comm.PostId);
+
+                    SetAccessRights();
+
+                    return View(a);
+                }
+
+            }
+
+            catch (Exception e)
+            {
+                Post a = db.Posts.Find(comm.PostId);
+
+                SetAccessRights();
+
+                return View(a);
+            }
+
+        }
         public ActionResult New()
         {
             return View();
@@ -40,8 +77,10 @@ namespace MiniSocialNetwork.Controllers
         [HttpPost]
         public ActionResult New(Post pst)
         {
+            var loggedUser = User.Identity.GetUserId();
             try
             {
+                pst.UserId = loggedUser;
                 pst.CreatedAt = DateTime.Now;
                 db.Posts.Add(pst);
                 db.SaveChanges();
@@ -88,13 +127,34 @@ namespace MiniSocialNetwork.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "Admin, User")]
         public ActionResult Delete(int id)
         {
+            var loggedUser = User.Identity.GetUserId();
+           
             Post post = db.Posts.Find(id);
+
+            if (loggedUser != post.UserId && !User.IsInRole("Admin"))
+            {
+                TempData["message"] = "You cannot delete this post";
+                return RedirectToAction("Index");
+            }
             db.Posts.Remove(post);
             TempData["message"] = "Post deleted!";
             db.SaveChanges();
             return RedirectToAction("Index");
+
+        }
+        private void SetAccessRights()
+        {
+            ViewBag.afisareButoane = false;
+            if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+            {
+                ViewBag.afisareButoane = true;
+            }
+
+            ViewBag.IsAdmin = User.IsInRole("Admin");
+            ViewBag.loggedUser = User.Identity.GetUserId();
         }
     }
 }

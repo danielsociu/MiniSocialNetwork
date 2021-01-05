@@ -214,6 +214,7 @@ namespace MiniSocialNetwork.Controllers
                     {
                         group.Name = requestGroup.Name;
                         group.Details = requestGroup.Details;
+                        
                         // group.CreatorId = loggedUser;
                         // group.CreatedAt = requestGroup.CreatedAt;
                         db.SaveChanges();

@@ -36,6 +36,7 @@ namespace MiniSocialNetwork.Controllers
         {
             Comment comment = new Comment();
             comment.Posts = GetAllPosts();
+            
             return View(comment);
         }
         [NonAction]
@@ -66,7 +67,7 @@ namespace MiniSocialNetwork.Controllers
                 db.Comments.Add(comment);
                 db.SaveChanges();
                 TempData["message"] = "Comment added!";
-                return RedirectToAction("Index");
+                return Redirect("/Post/Show/" + comment.PostId);
             }
             catch (Exception e)
             {
@@ -97,7 +98,7 @@ namespace MiniSocialNetwork.Controllers
                     comment.CreatedAt = requestComment.CreatedAt;
                     db.SaveChanges();
                     TempData["message"] = "Comment edited!";
-                    return RedirectToAction("Index");
+                    return Redirect("/Post/Show/" + comment.PostId);
                 }
                 return View(requestComment);
             }
@@ -116,7 +117,7 @@ namespace MiniSocialNetwork.Controllers
             db.Comments.Remove(comment);
             db.SaveChanges();
             TempData["message"] = "Comment deleted!";
-            return RedirectToAction("Index");
+            return Redirect("/Post/Show/" + comment.PostId);
         }
 
     }

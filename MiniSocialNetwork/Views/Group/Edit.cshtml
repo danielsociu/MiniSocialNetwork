@@ -22,9 +22,10 @@
 
     @using (Html.BeginForm("Edit", "Group", FormMethod.Post, new { @class = "classic-form" }))
     {
+
         @Html.HttpMethodOverride(HttpVerbs.Put)
         @Html.ValidationSummary(false, null, new { @class = "text-danger" })
-
+        
         @Html.HiddenFor(m => m.GroupId)
         @Html.HiddenFor(m => m.CreatorId)
 

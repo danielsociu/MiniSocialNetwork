@@ -22,6 +22,7 @@
 
     @using (Html.BeginForm("New", "Group", FormMethod.Post, new { @class = "classic-form" }))
     {
+       
         @Html.ValidationSummary(false, null, new { @class = "text-danger" })
 
         @Html.Label("Name", "Group Name")
