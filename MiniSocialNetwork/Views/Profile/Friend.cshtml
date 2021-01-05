@@ -1,0 +1,9 @@
+﻿@model MiniSocialNetwork.Models.Profile
+@{ 
+    ViewBag.Title = "Friends List";
+}
+
+@foreach(var friend in ViewBag.Friends)
+{
+    <p>@friend.User2Id</p>
+}

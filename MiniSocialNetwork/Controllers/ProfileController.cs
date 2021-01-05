@@ -37,6 +37,10 @@ namespace MiniSocialNetwork.Controllers
                            orderby profile.FullName
                            select profile;
 
+            var friends = from friend in db.Friends
+                          orderby friend.CreatedAt
+                          select friend;
+
             var currentPage = Convert.ToInt32(Request.Params.Get("page"));
             var totalItems = profiles.Count();
 
@@ -53,6 +57,7 @@ namespace MiniSocialNetwork.Controllers
             ViewBag.Total = totalItems;
             ViewBag.LastPage = Math.Ceiling((float)totalItems / (float)this._perPage);
             ViewBag.Profiles = paginatedProfiles;
+            ViewBag.Friends = friends;
 
             if (TempData.ContainsKey("message"))
             {
