@@ -3,6 +3,14 @@
     ViewBag.Title = "Friends List";
 }
 
+<h2>@ViewBag.Title</h2>
+<hr />
+@if (ViewBag.Message != null)
+{
+    @ViewBag.Message;
+    <hr />
+}
+
 @if (ViewBag.Friends != null)
 {
     foreach (MiniSocialNetwork.Models.Profile profile in ViewBag.Friends)
@@ -10,5 +18,4 @@
         @Html.Partial("SmallProfile", profile);
         <hr />
     }
-
 }

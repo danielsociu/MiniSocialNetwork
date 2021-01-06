@@ -260,8 +260,17 @@ namespace MiniSocialNetwork.Controllers
             {
                 var profil = (from profile in db.Profiles
                               where profile.UserId != loggedUser && (profile.UserId == frnd.Sender || profile.UserId == frnd.Receiver)
-                              select profile).AsEnumerable<Profile>();
-                profiles = profiles.Concat(profil);
+                              select profile);
+                if (profil != null)
+                {
+                    if (profiles == null)
+                    {
+                        profiles = profil.AsEnumerable<Profile>();
+                    } else
+                    {
+                        profiles = profiles.Concat(profil.AsEnumerable<Profile>());
+                    }
+                }
             }
 
             ViewBag.Friends = profiles;
