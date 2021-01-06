@@ -386,9 +386,15 @@ namespace MiniSocialNetwork.Controllers
             var receivedFriend = (from friend in db.Friends
                                where friend.Sender == friendToAdd && friend.Receiver == currentUser
                                select friend).FirstOrDefault();
-
+            var AcceptedFriend = (from friend in db.Friends
+                                  where friend.Accepted == true && ((friend.Sender == currentUser && friend.Receiver == friendToAdd) || (friend.Sender == friendToAdd && friend.Receiver == currentUser))
+                                  select friend).FirstOrDefault();
       
-
+            if(AcceptedFriend != null)
+            {
+                TempData["message"] = "Already friends";
+                return RedirectToAction("Index");
+            }
             if (currentUser == friendToAdd)
             {
                 TempData["message"] = "You cannot add yourself as friend!";
@@ -397,7 +403,7 @@ namespace MiniSocialNetwork.Controllers
 
             if (alreadyAdded != null)
             {
-                TempData["message"] = "You already send a friend request or this user is already your friend!";
+                TempData["message"] = "You already send a friend request";
                 return RedirectToAction("Index");
             }
 
