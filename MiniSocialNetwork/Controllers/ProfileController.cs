@@ -120,6 +120,7 @@ namespace MiniSocialNetwork.Controllers
                 TempData["message"] = "Profile doesn't exist";
                 return RedirectToAction("Index");
             }
+            
             return View(profileUser);
         }
 
@@ -319,6 +320,8 @@ namespace MiniSocialNetwork.Controllers
                                     where friend.Sender == senderId && friend.Receiver == loggedUser
                                     select friend).FirstOrDefault();
 
+                
+
                 if (updatedFriend == null)
                 {
                     TempData["message"] = "You didn't receive this friend request";
@@ -378,21 +381,23 @@ namespace MiniSocialNetwork.Controllers
             string friendToAdd = formData.Get("UserId");
 
             var alreadyAdded = (from friend in db.Friends
-                               where friend.Sender == currentUser && friend.Receiver == friendToAdd
+                               where friend.Sender == currentUser && friend.Receiver == friendToAdd 
                                select friend).FirstOrDefault();
             var receivedFriend = (from friend in db.Friends
                                where friend.Sender == friendToAdd && friend.Receiver == currentUser
                                select friend).FirstOrDefault();
-            
+
+      
+
             if (currentUser == friendToAdd)
             {
-                TempData["message"] = "You cannot add yourself as friend";
+                TempData["message"] = "You cannot add yourself as friend!";
                 return RedirectToAction("Index");
             }
 
             if (alreadyAdded != null)
             {
-                TempData["message"] = "You already send a friend request";
+                TempData["message"] = "You already send a friend request or this user is already your friend!";
                 return RedirectToAction("Index");
             }
 
