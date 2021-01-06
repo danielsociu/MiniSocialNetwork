@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace MiniSocialNetwork.Controllers
 {
+    [Authorize]
     public class CommentController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

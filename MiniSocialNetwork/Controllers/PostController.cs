@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace MiniSocialNetwork.Controllers
 {
+    [Authorize]
     public class PostController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
